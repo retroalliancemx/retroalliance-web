@@ -1,0 +1,14 @@
+{
+  "artista": "Próximo Artista",
+  "titulo": "Retro Alliance Presenta",
+  "descripcion": "Una noche única llena de música en vivo. Próximamente más detalles.",
+  "fecha": "2025-08-01 20:00",
+  "venue": "Por confirmar",
+  "ciudad": "Guadalajara, Jalisco",
+  "imagen": "",
+  "link_boletos": "",
+  "boletos": [
+    { "tipo": "General", "precio": 200, "disponible": true }
+  ],
+  "estado": "proximo"
+}
