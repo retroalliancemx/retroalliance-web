@@ -1,0 +1,44 @@
+backend:
+  name: github
+  repo: retroalliancemx/retroalliance-web
+  branch: main
+
+media_folder: "imagenes"
+public_folder: "/imagenes"
+
+locale: "es"
+
+collections:
+  - name: "eventos"
+    label: "Eventos"
+    label_singular: "Evento"
+    folder: "eventos"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nombre del artista", name: "artista", widget: "string", hint: "Ej: Café Tacvba, Natanael Cano" }
+      - { label: "Nombre del evento", name: "titulo", widget: "string", hint: "Ej: Noche Retro Vol. 1" }
+      - { label: "Descripción", name: "descripcion", widget: "text", hint: "Breve descripción del evento" }
+      - { label: "Fecha y hora", name: "fecha", widget: "datetime", format: "YYYY-MM-DD HH:mm", date_format: "DD/MM/YYYY", time_format: "HH:mm" }
+      - { label: "Venue / Lugar", name: "venue", widget: "string", hint: "Ej: Foro Independencia" }
+      - { label: "Ciudad", name: "ciudad", widget: "string", default: "Guadalajara, Jalisco" }
+      - { label: "Imagen del evento", name: "imagen", widget: "image", hint: "Sube el flyer o imagen promocional" }
+      - { label: "Link para comprar boletos", name: "link_boletos", widget: "string", required: false, hint: "URL completa, ej: https://boletia.com/..." }
+      - label: "Tipos de boletos"
+        name: "boletos"
+        widget: "list"
+        label_singular: "Tipo de boleto"
+        fields:
+          - { label: "Tipo", name: "tipo", widget: "string", hint: "Ej: General, VIP, Meet & Greet" }
+          - { label: "Precio (MXN)", name: "precio", widget: "number", value_type: "int" }
+          - { label: "Disponible", name: "disponible", widget: "boolean", default: true }
+      - label: "Estado del evento"
+        name: "estado"
+        widget: "select"
+        options:
+          - { label: "Próximamente", value: "proximo" }
+          - { label: "Boletos disponibles", value: "disponible" }
+          - { label: "Agotado", value: "agotado" }
+          - { label: "Cancelado", value: "cancelado" }
+        default: "proximo"

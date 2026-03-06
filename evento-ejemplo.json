@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Retro Alliance — Panel de Administración</title>
-  <link rel="stylesheet" href="https://unpkg.com/netlify-cms@^2.0.0/dist/cms.css" />
-  <style>
-    /* Custom branding */
-    body { font-family: 'Montserrat', sans-serif !important; }
-  </style>
-</head>
-<body>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-  <script>
-    // Custom logo in CMS
-    CMS.registerPreviewStyle('/admin/preview.css');
-  </script>
-</body>
-</html>
+{
+  "artista": "Próximo Artista",
+  "titulo": "Retro Alliance presenta",
+  "descripcion": "Una noche única llena de música en vivo. Próximamente más detalles.",
+  "fecha": "2025-08-01 20:00",
+  "venue": "Por confirmar",
+  "ciudad": "Guadalajara, Jalisco",
+  "imagen": "",
+  "link_boletos": "",
+  "boletos": [
+    { "tipo": "General", "precio": 200, "disponible": true }
+  ],
+  "estado": "proximo"
+}
