@@ -321,3 +321,143 @@ footer { background:#050505; padding:44px 60px; display:flex; align-items:center
   <ul class="ft-links">
     <li><a href="https://tiktok.com/@retroalliancemx" target="_blank">TikTok</a></li>
     <li><a href="https://instagram.com/retroalliancemx" target="_blank">Instagram</a></li>
+    <li><a href="https://facebook.com/retroalliancemx" target="_blank">Facebook</a></li>
+    <li><a href="https://youtube.com/@retroalliancemx" target="_blank">YouTube</a></li>
+  </ul>
+  <div class="ft-legal">Marca registrada ante el IMPI · Clase 41<br>contacto@retroalliancemx.com<br>© 2025 Retro Alliance</div>
+</footer>
+
+<script>
+// Mobile menu
+document.getElementById("navToggle").addEventListener("click", function(){
+  document.getElementById("navLinks").classList.toggle("open");
+});
+document.querySelectorAll(".nav-links a").forEach(function(a){
+  a.addEventListener("click", function(){
+    document.getElementById("navLinks").classList.remove("open");
+  });
+});
+
+// Load events from /eventos/*.json
+async function loadEventos() {
+  var container = document.getElementById("eventos-container");
+  try {
+    // Fetch list of event files from GitHub API
+    var GITHUB_USER = "retroalliancemx";
+    var GITHUB_REPO = "retroalliance-web";
+    var url = "https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/eventos";
+    var res = await fetch(url);
+    if (!res.ok) throw new Error("no files");
+    var files = await res.json();
+    var jsonFiles = files.filter(function(f){ return f.name.endsWith(".json"); });
+    if (jsonFiles.length === 0) throw new Error("empty");
+    var eventos = [];
+    for (var f of jsonFiles) {
+      var r = await fetch(f.download_url);
+      var ev = await r.json();
+      eventos.push(ev);
+    }
+    // Sort by date
+    eventos.sort(function(a,b){ return new Date(a.fecha) - new Date(b.fecha); });
+    renderEventos(eventos, container);
+  } catch(e) {
+    // Fallback: show placeholder cards
+    renderPlaceholder(container);
+  }
+}
+
+function formatFecha(fechaStr) {
+  if (!fechaStr) return "Fecha por confirmar";
+  var d = new Date(fechaStr);
+  var dias = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+  var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+  return dias[d.getDay()] + " " + d.getDate() + " " + meses[d.getMonth()] + " " + d.getFullYear() + " · " + d.getHours() + ":" + String(d.getMinutes()).padStart(2,"0") + "h";
+}
+
+function statusLabel(estado) {
+  var map = { proximo:"Próximamente", disponible:"Boletos disponibles", agotado:"Agotado", cancelado:"Cancelado" };
+  return map[estado] || "Próximamente";
+}
+
+function renderEventos(eventos, container) {
+  var html = '<div class="ev-grid">';
+  eventos.forEach(function(ev) {
+    var imgHtml = ev.imagen
+      ? '<img class="ev-img" src="' + ev.imagen + '" alt="' + ev.artista + '">' 
+      : '<div class="ev-img-placeholder"><span>RETRO ALLIANCE</span></div>';
+    var boletosHtml = "";
+    if (ev.boletos && ev.boletos.length) {
+      boletosHtml = '<div class="ev-boletos">';
+      ev.boletos.forEach(function(b) {
+        boletosHtml += '<div class="ev-boleto' + (!b.disponible ? " agotado" : "") + '">';
+        boletosHtml += '<span class="ev-boleto-tipo">' + b.tipo + '</span>';
+        boletosHtml += '<span class="ev-boleto-precio">$' + Number(b.precio).toLocaleString() + ' MXN</span>';
+        boletosHtml += '</div>';
+      });
+      boletosHtml += '</div>';
+    }
+    var btnHtml = "";
+    if (ev.estado === "disponible" && ev.link_boletos) {
+      btnHtml = '<a href="' + ev.link_boletos + '" class="ev-btn" target="_blank">Comprar boletos →</a>';
+    } else if (ev.estado === "agotado") {
+      btnHtml = '<span class="ev-btn disabled">Agotado</span>';
+    } else if (ev.estado === "cancelado") {
+      btnHtml = '<span class="ev-btn disabled">Cancelado</span>';
+    } else {
+      btnHtml = '<span class="ev-btn disabled">Boletos próximamente</span>';
+    }
+    html += '<div class="ev-card">';
+    html += imgHtml;
+    html += '<div class="ev-body">';
+    html += '<span class="ev-status ' + ev.estado + '">' + statusLabel(ev.estado) + '</span>';
+    html += '<span class="ev-date">' + formatFecha(ev.fecha) + '</span>';
+    html += '<div class="ev-name">' + (ev.titulo || ev.artista) + '</div>';
+    if (ev.titulo) html += '<div class="ev-artista">' + ev.artista + '</div>';
+    html += '<div class="ev-venue">📍 ' + ev.venue + ' · ' + ev.ciudad + '</div>';
+    if (ev.descripcion) html += '<div class="ev-desc">' + ev.descripcion + '</div>';
+    html += boletosHtml;
+    html += btnHtml;
+    html += '</div></div>';
+  });
+  // Fill with empty slot if odd number
+  if (eventos.length % 2 !== 0) {
+    html += '<div class="ev-empty"><div class="ev-empty-t">MÁS EVENTOS EN CAMINO</div><div class="ev-empty-s">Síguenos en redes para el anuncio</div></div>';
+  }
+  html += '</div>';
+  html += '<div style="text-align:center;margin-top:32px;"><a href="mailto:contacto@retroalliancemx.com" class="btn-ow">¿Quieres patrocinar un evento? →</a></div>';
+  container.innerHTML = html;
+}
+
+function renderPlaceholder(container) {
+  container.innerHTML = '<div class="ev-grid"><div class="ev-empty"><div class="ev-empty-t">PRÓXIMOS ANUNCIOS</div><div class="ev-empty-s">Síguenos en redes</div></div><div class="ev-empty"><div class="ev-empty-t">¿QUIERES PATROCINAR?</div><div class="ev-empty-s">contacto@retroalliancemx.com</div></div></div>';
+}
+
+loadEventos();
+
+// Contact form
+document.getElementById("contactForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  var btn = this.querySelector("button");
+  btn.textContent = "Enviando...";
+  btn.disabled = true;
+  try {
+    var response = await fetch(this.action, { method:"POST", body:new FormData(this), headers:{"Accept":"application/json"} });
+    if (response.ok) {
+      btn.textContent = "¡Mensaje enviado! ✓";
+      btn.style.background = "#aaa";
+      this.reset();
+      setTimeout(function(){ btn.textContent = "Enviar mensaje →"; btn.style.background=""; btn.disabled=false; }, 4000);
+    } else {
+      btn.textContent = "Error — intenta de nuevo";
+      btn.style.background = "#c00"; btn.style.color = "#fff";
+      setTimeout(function(){ btn.textContent="Enviar mensaje →"; btn.style.background=""; btn.style.color=""; btn.disabled=false; }, 4000);
+    }
+  } catch(err) {
+    btn.textContent = "Error de conexión";
+    btn.style.background = "#c00"; btn.style.color = "#fff";
+    setTimeout(function(){ btn.textContent="Enviar mensaje →"; btn.style.background=""; btn.style.color=""; btn.disabled=false; }, 4000);
+  }
+});
+</script>
+</body>
+</html>
