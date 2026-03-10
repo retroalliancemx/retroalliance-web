@@ -8,7 +8,7 @@
   "imagen": "/OIP.webp",
   "link_boletos": "",
   "boletos": [
-    { "tipo": "Early Bird", "precio": 200, "aforo": 50, "disponible": false },
+    { "tipo": "Early Bird", "precio": 200, "aforo": 50, "disponible": true },
     { "tipo": "Fase 1",     "precio": 250, "aforo": 120, "disponible": true },
     { "tipo": "Fase 2",     "precio": 300, "aforo": 130, "disponible": true },
     { "tipo": "M&G",       "precio": 600, "aforo": 20,  "disponible": true }
