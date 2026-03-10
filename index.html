@@ -449,7 +449,10 @@ function renderEventos(eventos, container) {
     html += '<div class="ev-name">' + (ev.titulo || ev.artista) + '</div>';
     if (ev.titulo) html += '<div class="ev-artista">' + ev.artista + '</div>';
     html += '<div class="ev-venue">📍 ' + ev.venue + ' · ' + ev.ciudad + '</div>';
-    if (ev.descripcion) html += '<div class="ev-desc">' + ev.descripcion + '</div>';
+    if (ev.descripcion) {
+      var desc = ev.descripcion.length > 120 ? ev.descripcion.substring(0, 120).trimEnd() + '...' : ev.descripcion;
+      html += '<div class="ev-desc">' + desc + '</div>';
+    }
     html += boletosHtml;
     html += btnHtml;
     html += '</div></div>';
