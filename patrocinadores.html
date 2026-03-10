@@ -92,8 +92,19 @@
   </div>
 
   <div class="sponsors-section">
-    <div class="sp-grid" id="sponsors-container">
-      <div class="sp-loading">Cargando patrocinadores…</div>
+    <div class="sp-grid">
+
+      <div class="sp-card">
+        <div class="sp-logo-wrap">
+          <img src="https://cdn.jsdelivr.net/gh/retroalliancemx/retroalliance-web@main/Logotipo-Fortuna-e1741823512297.png" alt="Cerveza Fortuna">
+        </div>
+        <div class="sp-info">
+          <div class="sp-name">Cerveza Fortuna</div>
+          <p class="sp-desc">Cerveza oficial del evento "The Space Ocean" organizado por Retro Alliance.</p>
+          <a href="https://cervezafortuna.com/inicio/" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -113,58 +124,6 @@
 document.getElementById("navToggle").addEventListener("click", function() {
   document.getElementById("navLinks").classList.toggle("open");
 });
-
-async function loadSponsors() {
-  var container = document.getElementById("sponsors-container");
-  // Lista de archivos — agrega aquí cada nuevo patrocinador
-  var archivos = ["CervezaFortuna.json"];
-  try {
-    var BASE = "https://cdn.jsdelivr.net/gh/retroalliancemx/retroalliance-web@main/patrocinadores/";
-    var sponsors = [];
-    for (var nombre of archivos) {
-      var r = await fetch(BASE + nombre);
-      if (!r.ok) continue;
-      var sp = await r.json();
-      sponsors.push(sp);
-    }
-    if (sponsors.length === 0) throw new Error("empty");
-    renderSponsors(sponsors, container);
-  } catch(e) {
-    renderPlaceholder(container);
-  }
-}
-
-function renderSponsors(sponsors, container) {
-  var html = "";
-  sponsors.forEach(function(sp) {
-    var logoHtml = sp.logo
-      ? '<div class="sp-logo-wrap"><img src="' + sp.logo + '" alt="' + sp.nombre + '"></div>'
-      : '<div class="sp-logo-placeholder"><span>Logo</span></div>';
-    var linkHtml = sp.sitio_web
-      ? '<a href="' + sp.sitio_web + '" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>'
-      : '';
-    html += '<div class="sp-card">' +
-      logoHtml +
-      '<div class="sp-info">' +
-        '<div class="sp-name">' + sp.nombre + '</div>' +
-        '<p class="sp-desc">' + (sp.descripcion || "") + '</p>' +
-        linkHtml +
-      '</div>' +
-    '</div>';
-  });
-  container.innerHTML = html;
-}
-
-function renderPlaceholder(container) {
-  var placeholders = [
-    { nombre: "Nombre del patrocinador", descripcion: "Descripción breve de la marca o empresa patrocinadora y su relación con Retro Alliance.", sitio_web: "#" },
-    { nombre: "Nombre del patrocinador", descripcion: "Descripción breve de la marca o empresa patrocinadora y su relación con Retro Alliance.", sitio_web: "#" },
-    { nombre: "Nombre del patrocinador", descripcion: "Descripción breve de la marca o empresa patrocinadora y su relación con Retro Alliance.", sitio_web: "#" }
-  ];
-  renderSponsors(placeholders, container);
-}
-
-loadSponsors();
 </script>
 
 </body>
