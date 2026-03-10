@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aliados Comerciales — Retro Alliance</title>
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#0a0a0a; color:#fff; font-family:'Helvetica Neue',Arial,sans-serif; min-height:100vh; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:70px; background:#0a0a0a; border-bottom:1px solid #1a1a1a; }
+    .nav-logo img { height:40px; width:auto; }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.55); text-decoration:none; font-weight:600; transition:color .2s; }
+    .nav-links a:hover, .nav-links a.active { color:#fff; }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .nav-toggle span { width:22px; height:2px; background:#fff; display:block; }
+
+    /* PAGE */
+    .page-wrap { padding-top:70px; }
+
+    /* HERO */
+    .page-hero { padding:80px 40px 60px; border-bottom:1px solid #1a1a1a; position:relative; overflow:hidden; }
+    .page-hero::before {
+      content:'';
+      position:absolute;
+      top:-120px; right:-80px;
+      width:500px; height:500px;
+      background:radial-gradient(circle, rgba(255,255,255,.03) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .page-hero-inner { max-width:1100px; margin:0 auto; }
+    .page-tag { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:20px; display:block; }
+    .page-title { font-size:clamp(32px,5vw,60px); font-weight:700; letter-spacing:-1px; line-height:1.1; margin-bottom:16px; }
+    .page-subtitle { font-size:15px; color:rgba(255,255,255,.5); max-width:560px; line-height:1.7; }
+    .hero-meta { display:flex; gap:40px; margin-top:40px; padding-top:40px; border-top:1px solid #1a1a1a; }
+    .hero-stat { }
+    .hero-stat-num { font-size:28px; font-weight:700; letter-spacing:-1px; }
+    .hero-stat-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.35); margin-top:4px; }
+
+    /* ALIADOS GRID */
+    .aliados-section { padding:80px 40px; max-width:1100px; margin:0 auto; }
+    .section-label { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,.25); margin-bottom:40px; display:flex; align-items:center; gap:16px; }
+    .section-label::after { content:''; flex:1; height:1px; background:#1a1a1a; }
+
+    .aliados-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+
+    .aliado-card {
+      background:#111;
+      padding:48px;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:32px;
+      align-items:start;
+      transition:background .25s;
+      position:relative;
+      overflow:hidden;
+    }
+    .aliado-card::before {
+      content:'';
+      position:absolute;
+      top:0; left:0;
+      width:3px; height:0;
+      background:#fff;
+      transition:height .3s ease;
+    }
+    .aliado-card:hover { background:#141414; }
+    .aliado-card:hover::before { height:100%; }
+
+    .aliado-logo-wrap {
+      width:72px; height:72px;
+      background:#1a1a1a;
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+    .aliado-logo-wrap img { width:100%; height:100%; object-fit:contain; padding:10px; }
+    .aliado-logo-initial {
+      width:72px; height:72px;
+      background:#1a1a1a;
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:22px; font-weight:700; color:rgba(255,255,255,.2);
+      flex-shrink:0;
+    }
+
+    .aliado-body { }
+    .aliado-categoria {
+      display:inline-block;
+      font-size:9px; letter-spacing:3px; text-transform:uppercase;
+      color:rgba(255,255,255,.3);
+      border:1px solid rgba(255,255,255,.1);
+      padding:4px 10px;
+      border-radius:2px;
+      margin-bottom:14px;
+    }
+    .aliado-nombre { font-size:20px; font-weight:700; letter-spacing:-.3px; margin-bottom:10px; }
+    .aliado-desc { font-size:13px; color:rgba(255,255,255,.5); line-height:1.75; margin-bottom:20px; }
+    .aliado-link {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:11px; letter-spacing:2px; text-transform:uppercase;
+      color:rgba(255,255,255,.35); text-decoration:none;
+      transition:color .2s;
+    }
+    .aliado-link:hover { color:#fff; }
+    .aliado-link svg { transition:transform .2s; }
+    .aliado-link:hover svg { transform:translateX(4px); }
+
+    /* CTA */
+    .cta-section { border-top:1px solid #1a1a1a; padding:80px 40px; }
+    .cta-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:40px; }
+    .cta-text h2 { font-size:clamp(22px,3vw,36px); font-weight:700; letter-spacing:-.5px; margin-bottom:12px; }
+    .cta-text p { font-size:15px; color:rgba(255,255,255,.5); max-width:440px; line-height:1.7; }
+    .cta-btn {
+      display:inline-block; flex-shrink:0;
+      background:#fff; color:#000;
+      font-size:11px; letter-spacing:3px; text-transform:uppercase; font-weight:700;
+      padding:18px 44px; text-decoration:none;
+      transition:opacity .2s;
+      white-space:nowrap;
+    }
+    .cta-btn:hover { opacity:.85; }
+
+    /* FOOTER */
+    footer { border-top:1px solid #1a1a1a; padding:40px; text-align:center; }
+    footer p { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.2); }
+
+    /* MOBILE */
+    @media(max-width:900px) {
+      .aliados-grid { grid-template-columns:1fr; }
+      .cta-inner { flex-direction:column; align-items:flex-start; }
+    }
+    @media(max-width:768px) {
+      nav { padding:0 20px; }
+      .nav-links { display:none; flex-direction:column; position:absolute; top:70px; left:0; right:0; background:#0a0a0a; border-bottom:1px solid #1a1a1a; padding:16px 20px; gap:16px; }
+      .nav-links.open { display:flex; }
+      .nav-toggle { display:flex; }
+      .page-hero, .aliados-section, .cta-section { padding-left:20px; padding-right:20px; }
+      .aliado-card { padding:32px 24px; grid-template-columns:1fr; gap:20px; }
+      .hero-meta { flex-direction:column; gap:24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><img src="/IMG_7022.PNG" alt="Retro Alliance"></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#nosotros">Nosotros</a></li>
+    <li><a href="/#eventos">Eventos</a></li>
+    <li><a href="/#servicios">Servicios</a></li>
+    <li><a href="/#equipo">Equipo</a></li>
+    <li><a href="patrocinadores.html">Patrocinadores</a></li>
+    <li><a href="aliados.html" class="active">Aliados</a></li>
+    <li><a href="/#contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="page-tag">Retro Alliance &middot; Red Comercial</span>
+      <h1 class="page-title">Aliados Comerciales</h1>
+      <p class="page-subtitle">Empresas y profesionales que hacen posible la calidad técnica de cada evento. Una red construida sobre confianza, excelencia y visión compartida.</p>
+
+    </div>
+  </div>
+
+  <div class="aliados-section">
+    <div class="section-label">Aliados actuales</div>
+    <div class="aliados-grid">
+
+      <div class="aliado-card">
+        <div class="aliado-logo-wrap" style="width:90px;height:90px;">
+          <img src="https://raw.githubusercontent.com/retroalliancemx/retroalliance-web/main/Copia_de_LOGO__DC_PRODUCCIONES___1_.png" alt="DC Producciones">
+        </div>
+        <div class="aliado-body">
+          <span class="aliado-categoria">Producción de Audio</span>
+          <div class="aliado-nombre">DC Producciones</div>
+          <p class="aliado-desc">Proveedor de audio profesional con experiencia en eventos en vivo. Equipamiento de alta fidelidad y operación técnica para garantizar una experiencia sonora impecable en cada noche Retro Alliance.</p>
+          <a href="https://www.dcproduccionesgdl.com" class="aliado-link" target="_blank" rel="noopener">
+            Conocer más
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="aliado-card">
+        <div class="aliado-logo-wrap">
+          <img src="https://raw.githubusercontent.com/retroalliancemx/retroalliance-web/main/IMG_7954.PNG" alt="BRUMMA">
+        </div>
+        <div class="aliado-body">
+          <span class="aliado-categoria">Producción de Audio</span>
+          <div class="aliado-nombre">BRUMMA</div>
+          <p class="aliado-desc">Especialistas en sonido y producción técnica para eventos de entretenimiento. Su dominio del audio en vivo complementa la atmósfera única que define a Retro Alliance.</p>
+          <a href="https://www.instagram.com/brumma.prod/" class="aliado-link" target="_blank" rel="noopener">
+            Conocer más
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>¿Quieres ser parte de la red?</h2>
+        <p>Si tienes una empresa de servicios y quieres colaborar con Retro Alliance, nos interesa conocerte.</p>
+      </div>
+      <a href="/#contacto" class="cta-btn">Contáctanos →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2025 Retro Alliance Memorable Experiences &middot; Guadalajara, México</p>
+</footer>
+
+<script>
+document.getElementById("navToggle").addEventListener("click", function() {
+  document.getElementById("navLinks").classList.toggle("open");
+});
+</script>
+
+</body>
+</html>
