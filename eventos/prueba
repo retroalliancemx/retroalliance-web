@@ -1,0 +1,14 @@
+{
+  "artista": "josepablo",
+  "titulo": "Lholaaaa",
+  "descripcion": "Una noche única con Lefnes en ubicación secreta. Experiencia inolvidable.",
+  "fecha": "2026-03-20 20:00",
+  "venue": "Ubicación Secreta",
+  "ciudad": "Guadalajara, Jalisco",
+  "imagen": "/OIP.webp",
+  "link_boletos": "",
+  "boletos": [
+    { "tipo": "General", "precio": 0, "disponible": false }
+  ],
+  "estado": "agotado"
+}
