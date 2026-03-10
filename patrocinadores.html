@@ -116,21 +116,18 @@ document.getElementById("navToggle").addEventListener("click", function() {
 
 async function loadSponsors() {
   var container = document.getElementById("sponsors-container");
+  // Lista de archivos — agrega aquí cada nuevo patrocinador
+  var archivos = ["CervezaFortuna.json"];
   try {
-    var GITHUB_USER = "retroalliancemx";
-    var GITHUB_REPO = "retroalliance-web";
-    var url = "https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/patrocinadores";
-    var res = await fetch(url);
-    if (!res.ok) throw new Error("no files");
-    var files = await res.json();
-    var jsonFiles = files.filter(function(f){ return f.name.endsWith(".json"); });
-    if (jsonFiles.length === 0) throw new Error("empty");
+    var BASE = "https://cdn.jsdelivr.net/gh/retroalliancemx/retroalliance-web@main/patrocinadores/";
     var sponsors = [];
-    for (var f of jsonFiles) {
-      var r = await fetch(f.download_url);
+    for (var nombre of archivos) {
+      var r = await fetch(BASE + nombre);
+      if (!r.ok) continue;
       var sp = await r.json();
       sponsors.push(sp);
     }
+    if (sponsors.length === 0) throw new Error("empty");
     renderSponsors(sponsors, container);
   } catch(e) {
     renderPlaceholder(container);
