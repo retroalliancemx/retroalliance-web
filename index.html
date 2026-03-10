@@ -418,6 +418,8 @@ function renderEventos(eventos, container) {
   eventsData = eventos;
   var html = '<div class="ev-grid">';
   eventos.forEach(function(ev, evIdx) {
+    // Normalize estado to lowercase
+    ev.estado = (ev.estado || "proximo").toLowerCase();
     var imgHtml = ev.imagen
       ? '<img class="ev-img" src="' + ev.imagen + '" alt="' + ev.artista + '">' 
       : '<div class="ev-img-placeholder"><span>RETRO ALLIANCE</span></div>';
@@ -442,7 +444,7 @@ function renderEventos(eventos, container) {
     } else {
       btnHtml = '<span class="ev-btn disabled">Boletos próximamente</span>';
     }
-    html += '<div class="ev-card" onclick="openModal(eventsData[' + evIdx + '])">';
+    html += '<div class="ev-card" data-ev-idx="' + evIdx + '">';
     html += imgHtml;
     html += '<div class="ev-body">';
     html += '<span class="ev-status ' + ev.estado + '">' + statusLabel(ev.estado) + '</span>';
@@ -462,6 +464,13 @@ function renderEventos(eventos, container) {
   html += '</div>';
   html += '<div style="text-align:center;margin-top:32px;"><a href="#contacto" class="btn-ow">¿Quieres patrocinar un evento? →</a></div>';
   container.innerHTML = html;
+
+  // Attach click listeners to each card
+  container.querySelectorAll(".ev-card[data-ev-idx]").forEach(function(card) {
+    card.addEventListener("click", function() {
+      openModal(eventsData[parseInt(this.dataset.evIdx)]);
+    });
+  });
 }
 
 function renderPlaceholder(container) {
