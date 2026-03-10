@@ -5,7 +5,7 @@
   "fecha": "2026-05-08 19:45",
   "venue": "C3 rooftop",
   "ciudad": "Guadalajara, Jalisco",
-  "imagen": "https://raw.githubusercontent.com/retroalliancemx/retroalliance-web/main/TSOIMAGEN.png",
+  "imagen": "/the space ocean - Search Images.html",
   "link_boletos": "",
   "boletos": [
     { "tipo": "Early Bird", "precio": 200, "aforo": 50, "disponible": true },
