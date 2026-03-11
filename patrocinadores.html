@@ -43,6 +43,7 @@
     .sp-link:hover { color:#fff; border-color:#fff; }
     .sp-loading { text-align:center; padding:80px 20px; color:rgba(255,255,255,.3); font-size:13px; letter-spacing:2px; text-transform:uppercase; }
     .sp-error { text-align:center; padding:60px 20px; color:rgba(255,255,255,.3); font-size:13px; }
+    .sp-empty { text-align:center; padding:80px 20px; color:rgba(255,255,255,.2); font-size:13px; letter-spacing:2px; text-transform:uppercase; }
 
     /* CTA */
     .cta-section { border-top:1px solid #1a1a1a; padding:80px 40px; text-align:center; }
@@ -93,19 +94,8 @@
   </div>
 
   <div class="sponsors-section">
-    <div class="sp-grid">
-
-      <div class="sp-card">
-        <div class="sp-logo-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/retroalliancemx/retroalliance-web@main/Logotipo-Fortuna-e1741823512297.png" alt="Cerveza Fortuna">
-        </div>
-        <div class="sp-info">
-          <div class="sp-name">Cerveza Fortuna</div>
-          <p class="sp-desc">Cerveza oficial del evento "The Space Ocean" organizado por Retro Alliance.</p>
-          <a href="https://cervezafortuna.com/inicio/" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>
-        </div>
-      </div>
-
+    <div id="sp-container">
+      <div class="sp-loading">Cargando patrocinadores...</div>
     </div>
   </div>
 
@@ -125,6 +115,61 @@
 document.getElementById("navToggle").addEventListener("click", function() {
   document.getElementById("navLinks").classList.toggle("open");
 });
+
+var GITHUB_USER = "retroalliancemx";
+var GITHUB_REPO = "retroalliance-web";
+
+async function loadPatrocinadores() {
+  var container = document.getElementById("sp-container");
+  try {
+    var url = "https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/patrocinadores?t=" + Date.now();
+    var res = await fetch(url);
+    if (!res.ok) throw new Error("no folder");
+    var files = await res.json();
+    var jsonFiles = files.filter(function(f){ return f.name.endsWith(".json"); });
+    if (jsonFiles.length === 0) throw new Error("empty");
+
+    var patrocinadores = [];
+    for (var f of jsonFiles) {
+      var r = await fetch(f.download_url + "?t=" + Date.now());
+      var sp = await r.json();
+      patrocinadores.push(sp);
+    }
+
+    renderPatrocinadores(patrocinadores, container);
+  } catch(e) {
+    container.innerHTML = '<div class="sp-error">No se pudieron cargar los patrocinadores.<br><small style="color:rgba(255,255,255,.15);">' + e.message + '</small></div>';
+  }
+}
+
+function renderPatrocinadores(lista, container) {
+  if (!lista.length) {
+    container.innerHTML = '<div class="sp-empty">Próximos patrocinadores en camino</div>';
+    return;
+  }
+  var html = '<div class="sp-grid">';
+  lista.forEach(function(sp) {
+    var logoHtml = sp.logo
+      ? '<div class="sp-logo-wrap"><img src="' + sp.logo + '" alt="' + sp.nombre + '"></div>'
+      : '<div class="sp-logo-placeholder"><span>' + sp.nombre.substring(0,6) + '</span></div>';
+
+    var linkHtml = sp.sitio_web
+      ? '<a href="' + sp.sitio_web + '" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>'
+      : '';
+
+    html += '<div class="sp-card">';
+    html += logoHtml;
+    html += '<div class="sp-info">';
+    html += '<div class="sp-name">' + sp.nombre + '</div>';
+    if (sp.descripcion) html += '<p class="sp-desc">' + sp.descripcion + '</p>';
+    html += linkHtml;
+    html += '</div></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+loadPatrocinadores();
 </script>
 
 </body>
