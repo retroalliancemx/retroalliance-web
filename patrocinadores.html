@@ -7,8 +7,6 @@
   <style>
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     body { background:#0a0a0a; color:#fff; font-family:'Helvetica Neue',Arial,sans-serif; min-height:100vh; }
-
-    /* NAV */
     nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:70px; background:#0a0a0a; border-bottom:1px solid #1a1a1a; }
     .nav-logo img { height:40px; width:auto; }
     .nav-links { display:flex; gap:32px; list-style:none; }
@@ -16,18 +14,12 @@
     .nav-links a:hover, .nav-links a.active { color:#fff; }
     .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; }
     .nav-toggle span { width:22px; height:2px; background:#fff; display:block; }
-
-    /* PAGE CONTENT */
     .page-wrap { padding-top:70px; }
-
-    /* HERO STRIP */
     .page-hero { padding:80px 40px 60px; border-bottom:1px solid #1a1a1a; }
     .page-hero-inner { max-width:1100px; margin:0 auto; }
     .page-tag { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:20px; display:block; }
     .page-title { font-size:clamp(32px,5vw,60px); font-weight:700; letter-spacing:-1px; line-height:1.1; margin-bottom:16px; }
     .page-subtitle { font-size:15px; color:rgba(255,255,255,.5); max-width:520px; line-height:1.7; }
-
-    /* SPONSORS GRID */
     .sponsors-section { padding:80px 40px; max-width:1100px; margin:0 auto; }
     .sp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2px; }
     .sp-card { background:#111; padding:40px; display:flex; flex-direction:column; gap:24px; transition:background .2s; }
@@ -42,21 +34,14 @@
     .sp-link { display:inline-block; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.35); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.15); padding-bottom:3px; transition:color .2s, border-color .2s; }
     .sp-link:hover { color:#fff; border-color:#fff; }
     .sp-loading { text-align:center; padding:80px 20px; color:rgba(255,255,255,.3); font-size:13px; letter-spacing:2px; text-transform:uppercase; }
-    .sp-error { text-align:center; padding:60px 20px; color:rgba(255,255,255,.3); font-size:13px; }
     .sp-empty { text-align:center; padding:80px 20px; color:rgba(255,255,255,.2); font-size:13px; letter-spacing:2px; text-transform:uppercase; }
-
-    /* CTA */
     .cta-section { border-top:1px solid #1a1a1a; padding:80px 40px; text-align:center; }
     .cta-section h2 { font-size:clamp(22px,3vw,38px); font-weight:700; margin-bottom:16px; }
     .cta-section p { font-size:15px; color:rgba(255,255,255,.5); max-width:480px; margin:0 auto 36px; line-height:1.7; }
     .cta-btn { display:inline-block; background:#fff; color:#000; font-size:11px; letter-spacing:3px; text-transform:uppercase; font-weight:700; padding:16px 40px; text-decoration:none; transition:opacity .2s; }
     .cta-btn:hover { opacity:.85; }
-
-    /* FOOTER */
     footer { border-top:1px solid #1a1a1a; padding:40px; text-align:center; }
     footer p { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.2); }
-
-    /* MOBILE */
     @media(max-width:768px) {
       nav { padding:0 20px; }
       .nav-links { display:none; flex-direction:column; position:absolute; top:70px; left:0; right:0; background:#0a0a0a; border-bottom:1px solid #1a1a1a; padding:16px 20px; gap:16px; }
@@ -68,7 +53,6 @@
   </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-logo"><img src="/IMG_7022.PNG" alt="Retro Alliance"></div>
   <ul class="nav-links" id="navLinks">
@@ -82,9 +66,7 @@
   </ul>
   <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
 </nav>
-
 <div class="page-wrap">
-
   <div class="page-hero">
     <div class="page-hero-inner">
       <span class="page-tag">Retro Alliance &middot; Partners</span>
@@ -92,57 +74,24 @@
       <p class="page-subtitle">Marcas y empresas que hacen posible la experiencia Retro Alliance. Juntos construimos noches que no se olvidan.</p>
     </div>
   </div>
-
   <div class="sponsors-section">
-    <div class="sp-grid">
-
-      <!-- Cerveza Fortuna -->
-      <div class="sp-card">
-        <div class="sp-logo-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/retroalliancemx/retroalliance-web@main/Logotipo-Fortuna-e1741823512297.png" alt="Cerveza Fortuna">
-        </div>
-        <div class="sp-info">
-          <div class="sp-name">Cerveza Fortuna</div>
-          <p class="sp-desc">Cerveza oficial del evento "The Space Ocean" organizado por Retro Alliance.</p>
-          <a href="https://cervezafortuna.com/inicio/" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>
-        </div>
-      </div>
-
-      <!-- Roomers -->
-      <div class="sp-card">
-        <div class="sp-logo-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/retroalliancemx/retroalliance-web@main/ROOMERSLOGO.webp" alt="Roomers">
-        </div>
-        <div class="sp-info">
-          <div class="sp-name">Roomers</div>
-          <p class="sp-desc">Roomers patrocinó el evento 'LEFNES & Efecto Visita & Sergelez', realizado el 20 de marzo del 2026. El apoyo de Roomers fue fundamental para la realización del evento.</p>
-          <a href="https://roomers.mx/" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>
-        </div>
-      </div>
-
-    </div>
+    <div id="sp-container"><div class="sp-loading">Cargando patrocinadores...</div></div>
   </div>
-
   <div class="cta-section">
     <h2>¿Quieres patrocinar?</h2>
     <p>Si tu marca quiere ser parte de los mejores eventos de Guadalajara, hablemos. Tenemos opciones para todo tipo de colaboración.</p>
     <a href="/#contacto" class="cta-btn">Contáctanos →</a>
   </div>
-
 </div>
-
 <footer>
-  <p>&copy; 2025 Retro Alliance Memorable Experiences &middot; Guadalajara, México</p>
+  <p>&copy; 2026 Retro Alliance Memorable Experiences &middot; Guadalajara, México</p>
 </footer>
-
 <script>
 document.getElementById("navToggle").addEventListener("click", function() {
   document.getElementById("navLinks").classList.toggle("open");
 });
-
 var GITHUB_USER = "retroalliancemx";
 var GITHUB_REPO = "retroalliance-web";
-
 async function loadPatrocinadores() {
   var container = document.getElementById("sp-container");
   try {
@@ -151,50 +100,33 @@ async function loadPatrocinadores() {
     if (!res.ok) throw new Error("no folder");
     var files = await res.json();
     var jsonFiles = files.filter(function(f){ return f.name.endsWith(".json"); });
-    if (jsonFiles.length === 0) throw new Error("empty");
-
-    var patrocinadores = [];
+    if (!jsonFiles.length) throw new Error("empty");
+    var lista = [];
     for (var f of jsonFiles) {
       var r = await fetch(f.download_url + "?t=" + Date.now());
-      var sp = await r.json();
-      patrocinadores.push(sp);
+      lista.push(await r.json());
     }
-
-    renderPatrocinadores(patrocinadores, container);
+    renderPatrocinadores(lista, container);
   } catch(e) {
-    container.innerHTML = '<div class="sp-error">No se pudieron cargar los patrocinadores.<br><small style="color:rgba(255,255,255,.15);">' + e.message + '</small></div>';
+    container.innerHTML = '<div class="sp-empty">No hay patrocinadores disponibles</div>';
   }
 }
-
 function renderPatrocinadores(lista, container) {
-  if (!lista.length) {
-    container.innerHTML = '<div class="sp-empty">Próximos patrocinadores en camino</div>';
-    return;
-  }
+  if (!lista.length) { container.innerHTML = '<div class="sp-empty">Próximos patrocinadores en camino</div>'; return; }
   var html = '<div class="sp-grid">';
   lista.forEach(function(sp) {
     var logoHtml = sp.logo
       ? '<div class="sp-logo-wrap"><img src="' + sp.logo + '" alt="' + sp.nombre + '"></div>'
       : '<div class="sp-logo-placeholder"><span>' + sp.nombre.substring(0,6) + '</span></div>';
-
-    var linkHtml = sp.sitio_web
-      ? '<a href="' + sp.sitio_web + '" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>'
-      : '';
-
-    html += '<div class="sp-card">';
-    html += logoHtml;
-    html += '<div class="sp-info">';
-    html += '<div class="sp-name">' + sp.nombre + '</div>';
+    var linkHtml = sp.sitio_web ? '<a href="' + sp.sitio_web + '" class="sp-link" target="_blank" rel="noopener">Visitar sitio →</a>' : '';
+    html += '<div class="sp-card">' + logoHtml + '<div class="sp-info"><div class="sp-name">' + sp.nombre + '</div>';
     if (sp.descripcion) html += '<p class="sp-desc">' + sp.descripcion + '</p>';
-    html += linkHtml;
-    html += '</div></div>';
+    html += linkHtml + '</div></div>';
   });
   html += '</div>';
   container.innerHTML = html;
 }
-
 loadPatrocinadores();
 </script>
-
 </body>
 </html>
