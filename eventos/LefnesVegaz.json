@@ -1,0 +1,14 @@
+{
+  "artista": "Lefnes - Vegaz",
+  "titulo": "Como antes...2 - LEFNES & VEGAZ",
+  "descripcion": "Concierto en casa, sin nada más que decir.",
+  "fecha": "2026-06-13 20:00",
+  "venue": "Ubicación secreta",
+  "ciudad": "Guadalajara, Jalisco",
+  "imagen": "https://raw.githubusercontent.com/retroalliancemx/retroalliance-web/main/LEFNESFOTO2.png"
+  "link_boletos": "",
+  "boletos": [
+    { "tipo": "General", "precio": 150, "aforo": 100, "disponible": false }
+  ],
+  "estado": "proximo"
+}
