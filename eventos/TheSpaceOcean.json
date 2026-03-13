@@ -13,5 +13,5 @@
     { "tipo": "Fase 2", "precio": 300, "aforo": 130, "disponible": true },
     { "tipo": "M&G", "precio": 600, "aforo": 20, "disponible": true }
   ],
-  "estado": "Disponible"
+  "estado": "disponible"
 }
