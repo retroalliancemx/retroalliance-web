@@ -2,13 +2,17 @@
   "artista": "Vegaz - Lefnes",
   "titulo": "Como antes... - VEGAZ & LEFNES",
   "descripcion": "Concierto en casa, sin nada más que decir.",
-  "fecha": "2026-05-30 20:30",
+  "fecha": "2026-05-23 21:00",
   "venue": "Ubicación secreta",
   "ciudad": "León, Guanajuato",
   "imagen": "https://raw.githubusercontent.com/retroalliancemx/retroalliance-web/main/IMG_1855.JPG.jpeg",
   "link_boletos": "",
   "boletos": [
-    { "tipo": "General", "precio": 150, "aforo": 100, "disponible": false }
+    {
+      "tipo": "General",
+      "precio": 100,
+      "disponible": false
+    }
   ],
   "estado": "proximo"
 }
