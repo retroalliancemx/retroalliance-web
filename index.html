@@ -190,8 +190,8 @@ footer { background:#050505; padding:44px 60px; display:flex; align-items:center
     <li><a href="#eventos">Eventos</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#equipo">Equipo</a></li>
-    <li><a href="patrocinadores.html">Patrocinadores</a></li>
-    <li><a href="aliados.html">Aliados</a></li>
+    <li><a href='/patrocinadores'>Patrocinadores</a></li>
+    <li><a href='/aliados'>Aliados</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
@@ -359,7 +359,7 @@ footer { background:#050505; padding:44px 60px; display:flex; align-items:center
     <li><a href="https://facebook.com/retroalliancemx" target="_blank">Facebook</a></li>
     <li><a href="https://youtube.com/@retroalliancemx" target="_blank">YouTube</a></li>
   </ul>
-  <div class="ft-legal">Marca registrada ante el IMPI · Clase 41<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ffcf0f1ebfefcebf0dfedfaebedf0fef3f3f6fef1fcfaf2e7b1fcf0f2">[email&#160;protected]</a><br><a href="/aviso-de-privacidad.html" style="color:rgba(255,255,255,.25); font-size:9px; letter-spacing:2px; text-transform:uppercase; text-decoration:none;">Aviso de Privacidad</a><br>© 2025 Retro Alliance</div>
+  <div class="ft-legal">Marca registrada ante el IMPI · Clase 41<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ffcf0f1ebfefcebf0dfedfaebedf0fef3f3f6fef1fcfaf2e7b1fcf0f2">[email&#160;protected]</a><br><a href='/aviso-de-privacidad' style='color:rgba(255,255,255,.25); font-size:9px; letter-spacing:2px; text-transform:uppercase; text-decoration:none;'>Aviso de Privacidad</a><br>© 2025 Retro Alliance<br><br><span onclick="openGame()" style="cursor:pointer;color:rgba(255,255,255,0.08);font-size:9px;letter-spacing:1px;user-select:none;transition:color .4s;" onmouseover="this.style.color='rgba(255,255,255,0.35)'" onmouseout="this.style.color='rgba(255,255,255,0.08)'">&#9654; memorable flight</span></div>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -545,6 +545,33 @@ document.getElementById("contactForm").addEventListener("submit", async function
     btn.style.background = "#c00"; btn.style.color = "#fff";
     setTimeout(function(){ btn.textContent="Enviar mensaje →"; btn.style.background=""; btn.style.color=""; btn.disabled=false; }, 4000);
   }
+});
+</script>
+
+<!-- ── Modal del juego ── -->
+<div id="game-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;">
+  <div style="position:relative;width:min(420px,95vw);height:min(700px,92vh);">
+    <button onclick="closeGame()" style="position:absolute;top:-14px;right:-14px;width:28px;height:28px;background:#111;border:1px solid #888;color:#f0f0e8;font-family:'Courier New',monospace;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;line-height:1;">&#x2715;</button>
+    <iframe id="game-iframe" src="" title="Retro Alliance Game" style="width:100%;height:100%;border:none;display:block;"></iframe>
+  </div>
+</div>
+<script>
+function openGame(){
+  document.getElementById('game-iframe').src='juego.html';
+  var overlay=document.getElementById('game-modal-overlay');
+  overlay.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeGame(){
+  document.getElementById('game-iframe').src='';
+  document.getElementById('game-modal-overlay').style.display='none';
+  document.body.style.overflow='';
+}
+document.getElementById('game-modal-overlay').addEventListener('click',function(e){
+  if(e.target===this) closeGame();
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') closeGame();
 });
 </script>
 </body>
